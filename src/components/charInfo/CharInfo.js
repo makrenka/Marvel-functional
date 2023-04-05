@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { MarvelService } from '../../services/MarvelService';
@@ -17,18 +17,18 @@ export const CharInfo = ({ selectedId }) => {
 
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading((loading) => false);
+        setLoading(false);
     };
 
     const onError = () => {
-        setLoading((loading) => false);
-        setError((error) => true);
+        setLoading(false);
+        setError(true);
     };
 
     const updateChar = () => {
         if (!selectedId) { return };
 
-        setLoading((loading) => true);
+        setLoading(true);
 
         marvelService
             .getCharacter(selectedId)
