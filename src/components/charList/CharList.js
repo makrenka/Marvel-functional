@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { MarvelService } from '../../services/MarvelService';
@@ -7,109 +7,80 @@ import { Spinner } from '../spinner/Spinner';
 
 import './charList.scss';
 
-export class CharList extends Component {
+export const CharList = ({ selectedId, onSelected }) => {
 
-    state = {
-        charList: [],
-        loading: true,
-        error: false,
-        newItemLoading: false,
-        offset: 210,
-        charEnded: false,
-    }
+    const [charList, setCharList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [newItemLoading, setNewItemLoading] = useState(false);
+    const [offset, setOffset] = useState(210);
+    const [charEnded, setCharEnded] = useState(false);
 
-    marvelService = new MarvelService();
+    const marvelService = new MarvelService();
 
-    myRef = React.createRef();
-
-    onCharListLoaded = (newCharList) => {
+    const onCharListLoaded = (newCharList) => {
         let ended = false;
         if (newCharList.length < 9) {
             ended = true;
         };
 
-        this.setState(({ offset, charList }) => ({
-            charList: [...charList, ...newCharList],
-            loading: false,
-            newItemLoading: false,
-            offset: offset + 9,
-            charEnded: ended,
-        }));
+        setCharList((charList) => [...charList, ...newCharList]);
+        setLoading(false);
+        setNewItemLoading(false);
+        setOffset((offset) => offset + 9);
+        setCharEnded(ended);
     };
 
-    onCharListLoading = () => {
-        this.setState({
-            newItemLoading: true,
-        })
-    }
+    const onCharListLoading = () => {
+        setNewItemLoading(true);
+    };
 
-    onError = () => {
-        this.setState({
-            loading: false,
-            error: true,
-        })
-    }
+    const onError = () => {
+        setLoading(false);
+        setError(true);
+    };
 
-    updateCharList = (offset) => {
-        this.onCharListLoading();
-        this.marvelService
+    const updateCharList = (offset) => {
+        onCharListLoading();
+        marvelService
             .getAllCharacters(offset)
-            .then(this.onCharListLoaded)
-            .catch(this.onError);
+            .then(onCharListLoaded)
+            .catch(onError);
     };
 
-    changeClassItem = () => {
-        const items = Array.from(this.myRef.current.childNodes);
-        items.map(item => +item.dataset.id === this.props.selectedId
-            ? item.classList.add('char__item_selected')
-            : item.classList.remove('char__item_selected'));
-    };
+    useEffect(() => {
+        updateCharList();
+    }, []);
 
-    componentDidMount() {
-        this.updateCharList();
-    };
+    return (
+        <div className="char__list">
+            {loading && <Spinner />}
+            {error && <ErrorMessage />}
+            <ul className="char__grid">
+                {charList.map(({ thumbnail, name, id }) =>
+                    <li
+                        className={classNames({ char__item: true, 'char__item_selected': id === selectedId })}
+                        key={id}
+                        data-id={id}
+                        onClick={() => { onSelected(id) }}
 
-    componentDidUpdate(prevProps) {
-        if (this.props.selectedId !== prevProps.selectedId) {
-            this.changeClassItem();
-        };
-    };
-
-    render() {
-        const { loading, error, charList, offset, newItemLoading, charEnded } = this.state;
-        const { onSelected } = this.props;
-
-        return (
-            <div className="char__list">
-                {loading && <Spinner />}
-                {error && <ErrorMessage />}
-                <ul className="char__grid" ref={this.myRef}>
-                    {charList.map(({ thumbnail, name, id }) =>
-                        <li
-                            // className={classNames({ char__item: true, 'char__item_selected': id === selectedId })}
-                            className='char__item'
-                            key={id}
-                            data-id={id}
-                            onClick={() => { onSelected(id) }}
-
-                        >
-                            <img
-                                src={thumbnail}
-                                alt={name}
-                                className={classNames({ 'available': thumbnail.includes('available') })}
-                            />
-                            <div className="char__name">{name}</div>
-                        </li>
-                    )}
-                </ul>
-                <button
-                    className={classNames("button button__main button__long", { unactive: charEnded })}
-                    onClick={() => { this.updateCharList(offset) }}
-                    disabled={newItemLoading}
-                >
-                    <div className="inner">load more</div>
-                </button>
-            </div >
-        )
-    }
-}
+                    >
+                        <img
+                            src={thumbnail}
+                            alt={name}
+                            className={classNames({ 'available': thumbnail.includes('available') })}
+                        />
+                        <div className="char__name">{name}</div>
+                    </li>
+                )}
+            </ul>
+            <button
+                className={classNames("button button__main button__long", { unactive: charEnded })}
+                onClick={() => { updateCharList(offset) }}
+                disabled={newItemLoading}
+            >
+                <div className="inner">load more</div>
+            </button>
+        </div>
+    );
+};
