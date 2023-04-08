@@ -11,7 +11,7 @@ import './randomChar.scss';
 
 export const RandomChar = () => {
 
-    const [char, setChar] = useState({});
+    const [char, setChar] = useState(null);
 
     const { loading, error, getCharacter, clearError } = useMarvelService();
 
@@ -73,7 +73,7 @@ export const RandomChar = () => {
         <div className="randomchar">
             {error && <ErrorMessage />}
             {loading && <Spinner />}
-            {/* {!(loading || error || !char) && content()} */}
+            {!(loading || error || !char) && content()}
             <div className="randomchar__static">
                 <p className="randomchar__title">
                     Random character for today!<br />
