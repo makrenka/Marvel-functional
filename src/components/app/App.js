@@ -1,41 +1,33 @@
-import { Component } from "react";
-import AppHeader from "../appHeader/AppHeader";
-import { RandomChar } from "../randomChar/RandomChar";
-import { CharList } from "../charList/CharList";
-import { CharInfo } from "../charInfo/CharInfo";
+import { Route, Router, Routes } from "react-router-dom";
+
+import { AppHeader } from "../appHeader/AppHeader";
 import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
+import { ComicsPage } from "../../pages/ComicsPage";
+import { MainPage } from "../../pages/MainPage";
 
-import decoration from '../../resources/img/vision.png';
 
-export class App extends Component {
-
-    state = {
-        selectedId: null,
-    }
-
-    onSelected = (id) => {
-        this.setState({
-            selectedId: id,
-        })
-    }
-
-    render() {
-        const { selectedId } = this.state;
-
-        return (
-            <div className="app">
-                <AppHeader />
-                <main>
-                    <ErrorBoundary>
-                        <RandomChar />
-                        <div className="char__content">
-                            <CharList onSelected={this.onSelected} selectedId={selectedId} />
-                            <CharInfo selectedId={selectedId} />
-                        </div>
-                    </ErrorBoundary>
-                    <img className="bg-decoration" src={decoration} alt="vision" />
-                </main>
-            </div>
-        );
-    };
+export const App = () => {
+    return (
+        // <Router>
+        <div className="app">
+            <AppHeader />
+            <main>
+                {/* <Switch>
+                        <ErrorBoundary>
+                            <Route exact path="/">
+                                <MainPage />
+                            </Route>
+                            <Route exact path="/comics">
+                                <ComicsPage />
+                            </Route>
+                        </ErrorBoundary>
+                    </Switch> */}
+                {/* <Routes>
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/comics" element={<ComicsPage />} />
+                    </Routes> */}
+            </main>
+        </div>
+        // </Router>
+    );
 };
