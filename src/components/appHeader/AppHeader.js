@@ -1,3 +1,4 @@
+import { Link, NavLink } from "react-router-dom";
 
 import './appHeader.scss';
 
@@ -5,22 +6,22 @@ export const AppHeader = () => {
     return (
         <header className="app__header">
             <h1 className="app__title">
-
-                <span>Marvel</span> information portal
-
+                <Link to="/">
+                    <span>Marvel</span> information portal
+                </Link>
             </h1>
             <nav className="app__menu">
                 <ul>
                     <li>
-
-                        Characters
-
+                        <NavLink end to="/">
+                            Characters
+                        </NavLink>
                     </li>
                     /
                     <li>
-
-                        Comics
-
+                        <NavLink end to="/comics">
+                            Comics
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
