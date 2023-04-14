@@ -1,12 +1,10 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { AppHeader } from "../appHeader/AppHeader";
 import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
-// import { ComicsPage } from "../../pages/ComicsPage";
-// import { MainPage } from "../../pages/MainPage";
 import { Page404 } from "../../pages/page404";
 import { SingleComic } from "../../pages/singleComicPage/SingleComicPage";
-import { lazy, Suspense } from "react";
 import { Spinner } from "../spinner/Spinner";
 
 const MainPage = lazy(() => import('../../pages/MainPage'));
