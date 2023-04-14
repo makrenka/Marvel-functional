@@ -4,6 +4,8 @@ import { AppHeader } from "../appHeader/AppHeader";
 import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 import { ComicsPage } from "../../pages/ComicsPage";
 import { MainPage } from "../../pages/MainPage";
+import { Page404 } from "../../pages/page404";
+import { SingleComic } from "../../pages/singleComicPage/SingleComicPage";
 
 
 
@@ -25,6 +27,8 @@ export const App = () => {
                         <Routes>
                             <Route path="/" element={<MainPage />} />
                             <Route path="/comics" element={<ComicsPage />} />
+                            <Route path="/comics/:id" element={<SingleComic />} />
+                            <Route path="*" element={<Page404 />} />
                         </Routes>
                     </main>
                 </div>
