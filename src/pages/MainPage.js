@@ -5,7 +5,7 @@ import { RandomChar } from "../components/randomChar/RandomChar";
 
 import decoration from '../resources/img/vision.png';
 
-export const MainPage = () => {
+const MainPage = () => {
 
     const [selectedId, setSelectedId] = useState(null);
 
@@ -24,3 +24,5 @@ export const MainPage = () => {
         </>
     );
 };
+
+export default MainPage;
