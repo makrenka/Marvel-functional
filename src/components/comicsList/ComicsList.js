@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 import { useMarvelService } from '../../services/MarvelService';
 import { Spinner } from '../spinner/Spinner';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 
 import './comicsList.scss';
-import classNames from 'classnames';
 
 export const ComicsList = () => {
 

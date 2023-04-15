@@ -5,16 +5,13 @@ import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 import { ComicsPage } from "../../pages/ComicsPage";
 import { MainPage } from "../../pages/MainPage";
 
-
-
-export const App = () => {
-    return (
-        <Router>
-            <ErrorBoundary>
-                <div className="app">
-                    <AppHeader />
-                    <main>
-                        {/* <Switch>
+export const App = () => (
+    <Router>
+        <ErrorBoundary>
+            <div className="app">
+                <AppHeader />
+                <main>
+                    {/* <Switch>
                                 <Route exact path="/">
                                     <MainPage />
                                 </Route>
@@ -22,14 +19,12 @@ export const App = () => {
                                     <ComicsPage />
                                 </Route>
                             </Switch> */}
-                        <Routes>
-                            <Route path="/" element={<MainPage />} />
-                            <Route path="/comics" element={<ComicsPage />} />
-                        </Routes>
-                    </main>
-                </div>
-            </ErrorBoundary>
-        </Router>
-
-    );
-};
+                    <Routes>
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/comics" element={<ComicsPage />} />
+                    </Routes>
+                </main>
+            </div>
+        </ErrorBoundary>
+    </Router>
+);
