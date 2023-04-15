@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useMarvelService } from '../../services/MarvelService';
@@ -17,10 +18,7 @@ export const ComicsList = () => {
     const { loading, error, getAllComics } = useMarvelService();
 
     const onComicsListLoaded = (newComicsList) => {
-        let ended = false;
-        if (newComicsList.length < 8) {
-            ended = true;
-        };
+        let ended = newComicsList.length < 8 ? true : false;
 
         setComicsList((comicsList) => [...comicsList, ...newComicsList]);
         setNewItemLoading(false);
@@ -48,17 +46,17 @@ export const ComicsList = () => {
             <ul className="comics__grid">
                 {comicsList.map(({ id, thumbnail, title, price }) =>
                     <li className="comics__item" key={id}>
-                        <a href="#">
+                        <Link to={`/comics/${id}`}>
                             <img src={thumbnail} alt={title} className="comics__item-img" />
                             <div className="comics__item-name">{title}</div>
                             <div className="comics__item-price">{price}</div>
-                        </a>
+                        </Link>
                     </li>
                 )}
             </ul>
             <button
                 className={classNames("button button__main button__long", { unactive: charEnded })}
-                onClick={() => { updateComicsList(offset) }}
+                onClick={() => updateComicsList(offset)}
                 disabled={newItemLoading}
             >
                 <div className="inner">load more</div>
