@@ -10,14 +10,13 @@ import { Spinner } from "../spinner/Spinner";
 const MainPage = lazy(() => import('../../pages/MainPage'));
 const ComicsPage = lazy(() => import('../../pages/ComicsPage'));
 
-export const App = () => {
-    return (
-        <Router>
-            <ErrorBoundary>
-                <div className="app">
-                    <AppHeader />
-                    <main>
-                        {/* <Switch>
+export const App = () => (
+    <Router>
+        <ErrorBoundary>
+            <div className="app">
+                <AppHeader />
+                <main>
+                    {/* <Switch>
                                 <Route exact path="/">
                                     <MainPage />
                                 </Route>
@@ -25,18 +24,16 @@ export const App = () => {
                                     <ComicsPage />
                                 </Route>
                             </Switch> */}
-                        <Suspense fallback={<Spinner />}>
-                            <Routes>
-                                <Route path="/" element={<MainPage />} />
-                                <Route path="/comics" element={<ComicsPage />} />
-                                <Route path="/comics/:id" element={<SingleComic />} />
-                                <Route path="*" element={<Page404 />} />
-                            </Routes>
-                        </Suspense>
-                    </main>
-                </div>
-            </ErrorBoundary>
-        </Router>
-
-    );
-};
+                    <Suspense fallback={<Spinner />}>
+                        <Routes>
+                            <Route path="/" element={<MainPage />} />
+                            <Route path="/comics" element={<ComicsPage />} />
+                            <Route path="/comics/:id" element={<SingleComic />} />
+                            <Route path="*" element={<Page404 />} />
+                        </Routes>
+                    </Suspense>
+                </main>
+            </div>
+        </ErrorBoundary>
+    </Router>
+);

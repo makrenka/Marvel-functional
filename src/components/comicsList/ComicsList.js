@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { useMarvelService } from '../../services/MarvelService';
 import { Spinner } from '../spinner/Spinner';
 import { ErrorMessage } from '../errorMessage/ErrorMessage';
 
 import './comicsList.scss';
-import classNames from 'classnames';
 
 export const ComicsList = () => {
 
@@ -18,10 +18,7 @@ export const ComicsList = () => {
     const { loading, error, getAllComics } = useMarvelService();
 
     const onComicsListLoaded = (newComicsList) => {
-        let ended = false;
-        if (newComicsList.length < 8) {
-            ended = true;
-        };
+        let ended = newComicsList.length < 8 ? true : false;
 
         setComicsList((comicsList) => [...comicsList, ...newComicsList]);
         setNewItemLoading(false);
@@ -59,7 +56,7 @@ export const ComicsList = () => {
             </ul>
             <button
                 className={classNames("button button__main button__long", { unactive: charEnded })}
-                onClick={() => { updateComicsList(offset) }}
+                onClick={() => updateComicsList(offset)}
                 disabled={newItemLoading}
             >
                 <div className="inner">load more</div>
