@@ -54,5 +54,11 @@
       line-height: 24px;
       color: #03710e;
     }
+
+    &-success-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }

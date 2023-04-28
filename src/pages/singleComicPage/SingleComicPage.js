@@ -5,7 +5,7 @@ import { useMarvelService } from '../../services/MarvelService';
 import { ErrorMessage } from '../../components/errorMessage/ErrorMessage';
 import { Spinner } from '../../components/spinner/Spinner';
 
-import './SingleComicPage.scss';
+import './singleComicPage.scss';
 
 export const SingleComic = () => {
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,6 +7,8 @@ import * as yup from 'yup';
 import { useMarvelService } from '../../services/MarvelService';
 
 import './charSearchForm.scss';
+import { Spinner } from '../spinner/Spinner';
+import { ErrorMessage } from '../errorMessage/ErrorMessage';
 
 const schema = yup.object({
   name: yup
@@ -40,6 +43,10 @@ export const CharSearchForm = () => {
   //текст для посещения страницы: There is! Visit {char[0].name} page?
   //текст ошибки: The character was not found. Check the name and try again
 
+  if (loading) return <Spinner />;
+
+  if (error) return <ErrorMessage />;
+
   return (
     <div className="char__search-form">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -64,8 +71,17 @@ export const CharSearchForm = () => {
             <div className="inner">find</div>
           </button>
         </div>
-        <div className="char__search-error"></div>
       </form>
+      {char && char.length
+        ? <div className='char__search-success-wrapper'>
+          <p className='char__search-success'>There is! Visit {char[0].name} page</p>
+          <Link to={`/character/${char[0].id}`} className='button button__secondary'>
+            <div className="inner">To page</div>
+          </Link>
+        </div>
+        : char !== null
+          ? <p className="char__search-error">The character was not found. Check the name and try again</p>
+          : null}
     </div>
   );
 };
