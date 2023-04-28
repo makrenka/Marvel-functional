@@ -22,7 +22,7 @@ export const CharSearchForm = () => {
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
