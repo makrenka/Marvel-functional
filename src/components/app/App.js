@@ -6,6 +6,7 @@ import { ErrorBoundary } from "../errorBoundary/ErrorBoundary";
 import { Page404 } from "../../pages/page404";
 import { SingleComic } from "../../pages/singleComicPage/SingleComicPage";
 import { Spinner } from "../spinner/Spinner";
+import { SingleCharacter } from "../../pages/singleCharacterPage/SingleCharacterPage";
 
 const MainPage = lazy(() => import('../../pages/MainPage'));
 const ComicsPage = lazy(() => import('../../pages/ComicsPage'));
@@ -29,6 +30,7 @@ export const App = () => (
                             <Route path="/" element={<MainPage />} />
                             <Route path="/comics" element={<ComicsPage />} />
                             <Route path="/comics/:id" element={<SingleComic />} />
+                            <Route path="/character/:id" element={<SingleCharacter />} />
                             <Route path="*" element={<Page404 />} />
                         </Routes>
                     </Suspense>

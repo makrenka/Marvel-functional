@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useMarvelService } from '../../services/MarvelService';
@@ -35,7 +36,7 @@ export const RandomChar = () => {
     }, []);
 
     const content = () => {
-        const { name, description, thumbnail, homepage, wiki } = char;
+        const { name, description, thumbnail, homepage, wiki, id } = char;
         const checkDescription = (description === "")
             ? 'There is no description for this character'
             : description;
@@ -57,9 +58,9 @@ export const RandomChar = () => {
                     <p className="randomchar__name">{name}</p>
                     <p className="randomchar__descr">{pruningDescr}</p>
                     <div className="randomchar__btns">
-                        <a href={homepage} className="button button__main">
+                        <Link to={`/character/${id}`} className="button button__main">
                             <div className="inner">homepage</div>
-                        </a>
+                        </Link>
                         <a href={wiki} className="button button__secondary">
                             <div className="inner">Wiki</div>
                         </a>
